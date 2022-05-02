@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  lili-tracker:
+    build: .
+    container_name: lili-tracker
+    restart: always
+    ports:
+      - "16001:80"
+    volumes:
+      - ./logs:/root/tracker
