@@ -2,6 +2,7 @@ version: "3"
 
 services:
   lili-tracker:
+    image: lili-tracker
     build: .
     container_name: lili-tracker
     restart: always
