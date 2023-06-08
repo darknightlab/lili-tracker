@@ -2,11 +2,19 @@ version: "3"
 
 services:
   lili-tracker:
-    image: lili-tracker
-    build: .
+    image: darknightlab/lili-tracker:main
+    # build: .
     container_name: lili-tracker
     restart: always
     ports:
       - "16001:80"
-    volumes:
-      - ./logs:/root/tracker
+    command:
+      [
+        "--http",
+        "--ws",
+        "-p",
+        "80",
+        "--trust-proxy",
+        "--interval",
+        "600000"
+      ]

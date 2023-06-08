@@ -1,10 +1,19 @@
-FROM node:latest
+FROM node:lts-alpine as builder
 
-RUN npm install -g bittorrent-tracker
+WORKDIR /app
 
-RUN mkdir -p /root/tracker
+RUN npm install -g pkg node-pre-gyp && \
+    apk add --no-cache git && \
+    git clone https://github.com/webtorrent/bittorrent-tracker.git && \
+    cd bittorrent-tracker && \
+    # 等待pkg支持es moule, 再更新到新版
+    git checkout v9.19.0 && \
+    npm install && \
+    pkg -t host -o build/bittorrent-tracker .
 
-WORKDIR /root/tracker
+FROM alpine:latest
 
-ENTRYPOINT ["logsave", "logs.txt", "bittorrent-tracker"]
+COPY --from=builder /app/bittorrent-tracker/build/bittorrent-tracker /usr/bin/bittorrent-tracker
+
+ENTRYPOINT ["/usr/bin/bittorrent-tracker"]
 CMD ["--http", "--ws", "-p", "80", "--trust-proxy", "--interval", "600000"]
