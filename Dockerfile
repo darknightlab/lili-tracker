@@ -8,7 +8,7 @@ RUN npm install -g pkg node-pre-gyp && \
     cd bittorrent-tracker && \
     # 等待pkg支持es moule, 再更新到新版
     git checkout cjs && \
-    git checkout eba2cd303faf19de648e93bcc270b2902e949fb9 && \
+    git checkout 90d06087141bcb6881a753ed920121aed9e8d837 && \
     npm install && \
     pkg -t host -o build/bittorrent-tracker .
 

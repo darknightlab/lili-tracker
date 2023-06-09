@@ -16,5 +16,5 @@ services:
         "80",
         "--trust-proxy",
         "--interval",
-        "600000"
+        "1800000"
       ]
